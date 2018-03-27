@@ -98,9 +98,55 @@ service arangodb3 restart
 어쨋든 루트의 계정 비번이 변경이 잘 되었다. 콘솔 화면에서도 접속이 잘 된다! 가즈아!!!
 
 
-#### 디비 생성
+## Spring Getting Started
 
+참고 링크
+[https://www.arangodb.com/tutorials/spring-data/part1-getting-started/](https://www.arangodb.com/tutorials/spring-data/part1-getting-started/)
+[https://github.com/arangodb/spring-data#getting-started](https://github.com/arangodb/spring-data#getting-started)
 
+구축 환경은 아래와 같다. 
+
+- intellij
+- Spring Boot 2.0
+- Gradle 4.X
+
+먼저 Gradle 디펜던시 추가한다. 
+
+```
+compile('com.arangodb:arangodb-spring-data:2.0.3')
+```
+
+Property 와 Config 설정을 추가 한다. 
+
+```java
+import com.arangodb.ArangoDB;  
+import com.arangodb.springframework.annotation.EnableArangoRepositories;  
+import com.arangodb.springframework.config.AbstractArangoConfiguration;  
+import org.springframework.context.annotation.Configuration;  
+  
+@Configuration  
+@EnableArangoRepositories(basePackages = { "spring.data.arangodb" })  
+public class ArangoConfiguration extends AbstractArangoConfiguration {  
+  
+    @Override  
+  public ArangoDB.Builder arango() {  
+        return new ArangoDB.Builder();  
+  }  
+  
+    @Override  
+  public String database() {  
+        // Name of the database to be used  
+  return "Cafe";  
+  }  
+}
+```
+
+```java
+arangodb.host=119.205.221.42  
+arangodb.port=8529  
+arangodb.user=root  
+arangodb.password=****
+```
 
 
 문서 작성 중..........
