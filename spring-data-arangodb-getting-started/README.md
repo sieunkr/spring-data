@@ -1,4 +1,4 @@
-¹®¼­ ÀÛ¼º Áß..........
+ë¬¸ì„œ ìž‘ì„± ì¤‘..........
 
 
 
@@ -11,83 +11,83 @@
 # ArangoDB Getting Started
 
 ## Overview
-Arango DB ¸¦ ºü¸£°Ô ÀÌÇØÇÑ´Ù. 
+Arango DB ë¥¼ ë¹ ë¥´ê²Œ ì´í•´í•œë‹¤. 
 
 
-## Ã³À½ ¼³Ä¡
-ÇÊÀÚ´Â Cent 6 ¹öÀü¿¡¼­ ¼³Ä¡ÇÏ¿´´Ù.  
+## ì²˜ìŒ ì„¤ì¹˜
+í•„ìžëŠ” Cent 6 ë²„ì „ì—ì„œ ì„¤ì¹˜í•˜ì˜€ë‹¤.  
 ```
 cd /etc/yum.repos.d/
 curl -OL https://download.arangodb.com/arangodb33/CentOS_6/arangodb.repo
 yum -y install arangodb3-3.3.4
 ```
-CentOS ¿¡¼­ÀÇ ¼³Ä¡¿¡ ´ëÇØ¼­´Â ¾Æ·¡ ¸µÅ©¸¦ Âü°íÇÏÀÚ. 
+CentOS ì—ì„œì˜ ì„¤ì¹˜ì— ëŒ€í•´ì„œëŠ” ì•„ëž˜ ë§í¬ë¥¼ ì°¸ê³ í•˜ìž. 
 [https://www.arangodb.com/download-major/centos/](https://www.arangodb.com/download-major/centos/)
 
-¼³Ä¡¸¦ ¿Ï·áÇÏ¸é /etc/init.d/ µð·ºÅä¸®¿¡ arangodb3 ½ÇÇà ¸í·É¾î·Î ¼­¹ö¸¦ ½ÃÀÛÇÒ ¼ö ÀÖ´Ù. 
+ì„¤ì¹˜ë¥¼ ì™„ë£Œí•˜ë©´ /etc/init.d/ ë””ë ‰í† ë¦¬ì— arangodb3 ì‹¤í–‰ ëª…ë ¹ì–´ë¡œ ì„œë²„ë¥¼ ì‹œìž‘í•  ìˆ˜ ìžˆë‹¤. 
 ```
 /etc/init.d/arangodb3 start
 or
 service arangodb3 start
 ```
-¼³Ä¡ ÈÄ¿¡, 
+ì„¤ì¹˜ í›„ì—, 
 ```
 netstat -tnlp
 ```
-8529 Æ÷Æ®°¡ »ý°å´Ù¸é Á¤»óÀûÀ¸·Î ½ÇÇàµÈ °ÍÀÌ°ÚÁö?
+8529 í¬íŠ¸ê°€ ìƒê²¼ë‹¤ë©´ ì •ìƒì ìœ¼ë¡œ ì‹¤í–‰ëœ ê²ƒì´ê² ì§€?
 
-´Ù¸¥ OS ¿¡¼­ È¯°æ¿¡¼­ ¼³Ä¡¸¦ ÇÑ´Ù¸é ¾Æ·¡ °¡ÀÌµå¿¡¼­ È®ÀÎÇÏÀÚ. 
+ë‹¤ë¥¸ OS ì—ì„œ í™˜ê²½ì—ì„œ ì„¤ì¹˜ë¥¼ í•œë‹¤ë©´ ì•„ëž˜ ê°€ì´ë“œì—ì„œ í™•ì¸í•˜ìž. 
 [https://docs.arangodb.com/2.8/FirstSteps/GettingFamiliar.html](https://docs.arangodb.com/2.8/FirstSteps/GettingFamiliar.html)
 
-µµÄ¿ ÀÌ¹ÌÁö·Î ½ÇÇàÇÏ°Ú´Ù¸é, docker search arangodb , ¹× pull ¶¯°Ü¼­ ½ÇÇàÇÏ¸é µÉ°Í °°´Ù. (³ª´Â, ÇØº¸Áø ¾Ê¾Ò´Ù.)
+ë„ì»¤ ì´ë¯¸ì§€ë¡œ ì‹¤í–‰í•˜ê² ë‹¤ë©´, docker search arangodb , ë° pull ë•¡ê²¨ì„œ ì‹¤í–‰í•˜ë©´ ë ê²ƒ ê°™ë‹¤. (ë‚˜ëŠ”, í•´ë³´ì§„ ì•Šì•˜ë‹¤.)
 
-8529Æ÷Æ®°¡ ½ÇÇàµÇ¾úÀ¸´Ï ¸®´ª½º ¼­¹ö¿¡¼­ ¾Æ·¡¿Í °°ÀÌ Curl ¶§¸®´Ï±ñ Á¤»óÀûÀ¸·Î Response °¡ ¿Â´Ù. 
+8529í¬íŠ¸ê°€ ì‹¤í–‰ë˜ì—ˆìœ¼ë‹ˆ ë¦¬ëˆ…ìŠ¤ ì„œë²„ì—ì„œ ì•„ëž˜ì™€ ê°™ì´ Curl ë•Œë¦¬ë‹ˆê¹ ì •ìƒì ìœ¼ë¡œ Response ê°€ ì˜¨ë‹¤. 
 ```
 curl http://127.0.0.1:8529
 ```
 
-±Ùµ¥ ¿ÜºÎ¿¡¼­ Á¢±ÙÇÒ·Á´Ï±ñ ¾ÈµÇ´õ¶ó. ¹æÈ­º®À» ¿­¾î¾ß ÇÏ°Ú´Ù. 
+ê·¼ë° ì™¸ë¶€ì—ì„œ ì ‘ê·¼í• ë ¤ë‹ˆê¹ ì•ˆë˜ë”ë¼. ë°©í™”ë²½ì„ ì—´ì–´ì•¼ í•˜ê² ë‹¤. 
 
 ```
-# Æ÷Æ® ¼³Á¤, Ãß°¡
+# í¬íŠ¸ ì„¤ì •, ì¶”ê°€
 vi /etc/sysconfig/iptables
 -A INPUT -P tcp -m tcp --dport 8529 -j ACCEPT
 
-# iptables Àç½ÃÀÛ
+# iptables ìž¬ì‹œìž‘
 service iptables restart
 ```
 
-±Ùµ¥, ³ª´Â Æ÷Æ® ¿ÀÇÂÀ» Çß´Âµ¥µµ, Á¢¼ÓÀÌ ¾ÈµÈ´Ù. netstat ·Î È®ÀÎÇØº¸´Ï ´Ù¸¥ ¹Ìµé¿þ¾î ¼ÒÇÁÆ®¿þ¾î´Â 0.0.0.1:Æ÷Æ® ·Î ¼³Á¤ÀÌ µÇ¾îÀÖ´Âµ¥, ArangoDB ´Â 127.0.0.1 ·Î µÇ¾îÀÖ´Ù. ³»°¡ ¾ÆÁÖ ºü¸£°Ô »ý°¢ÇØ³½ ¹æ¹ýÀº µÎ°¡ÁöÀÎµ¥
+ê·¼ë°, ë‚˜ëŠ” í¬íŠ¸ ì˜¤í”ˆì„ í–ˆëŠ”ë°ë„, ì ‘ì†ì´ ì•ˆëœë‹¤. netstat ë¡œ í™•ì¸í•´ë³´ë‹ˆ ë‹¤ë¥¸ ë¯¸ë“¤ì›¨ì–´ ì†Œí”„íŠ¸ì›¨ì–´ëŠ” 0.0.0.1:í¬íŠ¸ ë¡œ ì„¤ì •ì´ ë˜ì–´ìžˆëŠ”ë°, ArangoDB ëŠ” 127.0.0.1 ë¡œ ë˜ì–´ìžˆë‹¤. ë‚´ê°€ ì•„ì£¼ ë¹ ë¥´ê²Œ ìƒê°í•´ë‚¸ ë°©ë²•ì€ ë‘ê°€ì§€ì¸ë°
 
-- nginx ¿¡¼­ Reverse Proxy ¸¦ Àû¿ëÇØ¼­ Æ÷Æ® ÀüÈ¯À» ½ÃÄÑÁØ´Ù.
-- ¾Æ´Ï¸é ArangoDB ÄÁÇÇ±× ¼³Á¤¿¡¼­ ¹Ù²ãÁØ´Ù
+- nginx ì—ì„œ Reverse Proxy ë¥¼ ì ìš©í•´ì„œ í¬íŠ¸ ì „í™˜ì„ ì‹œì¼œì¤€ë‹¤.
+- ì•„ë‹ˆë©´ ArangoDB ì»¨í”¼ê·¸ ì„¤ì •ì—ì„œ ë°”ê¿”ì¤€ë‹¤
 
-ÀÏ´Ü, µÑ´Ù °ËÁõµÇÁö ¾ÊÀº ¹æ¹ýÀÌÁö¸¸ µÎ¹øÂ° ¹æ¹ýÀ» »ç¿ëÇØ¼­  /etc/arangodb3 ¿¡ ÀÖ´Â arangod.conf ÆÄÀÏ¿¡¼­ endpoint ¸¦ º¯°æÇÑ´Ù. 
+ì¼ë‹¨, ë‘˜ë‹¤ ê²€ì¦ë˜ì§€ ì•Šì€ ë°©ë²•ì´ì§€ë§Œ ë‘ë²ˆì§¸ ë°©ë²•ì„ ì‚¬ìš©í•´ì„œ  /etc/arangodb3 ì— ìžˆëŠ” arangod.conf íŒŒì¼ì—ì„œ endpoint ë¥¼ ë³€ê²½í•œë‹¤. 
 
 ```
 #endpoint = tcp://127.0.0.1:8529
 endpoint = tcp://0.0.0.1:8529 
 ```
-Àû¿ëÇÏ¸é ¿ÜºÎ¿¡¼­ http://119.205.ºñ¹Ð.ºñ¹Ð:8529 ·Î Á¢¼ÓÇÏ´Ï ArangoDB ÄÜ¼Ö È­¸éÀ¸·Î Á¢¼ÓµÈ´Ù. ÇÏÁö¸¸, ¾ÆÁ÷ ³»°¡ ¸¸µç °èÁ¤ÀÌ ¾øÀ¸¹Ç·Î Á¢¼ÓÇÒ ¼ö´Â ¾ø´Ù.
+ì ìš©í•˜ë©´ ì™¸ë¶€ì—ì„œ http://119.205.ë¹„ë°€.ë¹„ë°€:8529 ë¡œ ì ‘ì†í•˜ë‹ˆ ArangoDB ì½˜ì†” í™”ë©´ìœ¼ë¡œ ì ‘ì†ëœë‹¤. í•˜ì§€ë§Œ, ì•„ì§ ë‚´ê°€ ë§Œë“  ê³„ì •ì´ ì—†ìœ¼ë¯€ë¡œ ì ‘ì†í•  ìˆ˜ëŠ” ì—†ë‹¤.
 
-## DB »ý¼º ¹× °èÁ¤ »ý¼º
+## DB ìƒì„± ë° ê³„ì • ìƒì„±
 
-#### ·çÆ® ºñ¹ø ÃÊ±âÈ­
+#### ë£¨íŠ¸ ë¹„ë²ˆ ì´ˆê¸°í™”
 
-·çÆ® °èÁ¤ÀÌ ÀÖÀ»ÅÙµ¥, °¡ÀÌµå¿¡¼­´Â ÆÐ½º¿öµå°¡ empty ¶ó°í ÇÏ´Âµ¥, ¹º°¡ ¼³Á¤ÀÌ Àß¸øµÈ °ÍÀÎÁö Á¢¼ÓÀÌ ¾ÈµÈ´Ù. Á¢¼ÓÀÌ ¾ÈµÈ´Ù´Â ÀÇ¹Ì´Â ArangoDB ½© ¿¡ root °èÁ¤À¸·Î Á¢¼ÓÀÌ ¾ÈµÈ´Ù´Â ÀÇ¹Ì´Ù. ¹°·Ð, ½© »Ó¸¸ ¾Æ´Ï¶ó ÄÜ¼ÖÈ­¸é¿¡¼­µµ ·Î±×ÀÎÀÌ ¾ÈµÈ´Ù.
+ë£¨íŠ¸ ê³„ì •ì´ ìžˆì„í…ë°, ê°€ì´ë“œì—ì„œëŠ” íŒ¨ìŠ¤ì›Œë“œê°€ empty ë¼ê³  í•˜ëŠ”ë°, ë­”ê°€ ì„¤ì •ì´ ìž˜ëª»ëœ ê²ƒì¸ì§€ ì ‘ì†ì´ ì•ˆëœë‹¤. ì ‘ì†ì´ ì•ˆëœë‹¤ëŠ” ì˜ë¯¸ëŠ” ArangoDB ì‰˜ ì— root ê³„ì •ìœ¼ë¡œ ì ‘ì†ì´ ì•ˆëœë‹¤ëŠ” ì˜ë¯¸ë‹¤. ë¬¼ë¡ , ì‰˜ ë¿ë§Œ ì•„ë‹ˆë¼ ì½˜ì†”í™”ë©´ì—ì„œë„ ë¡œê·¸ì¸ì´ ì•ˆëœë‹¤.
 
-ÀÏ´Ü, Æí¹ýÀÌÁö¸¸ ArangoDB ¸¦ ±ÇÇÑ ¾øÀÌ Á¢¼ÓÇÒ ¼ö ÀÖµµ·Ï ¶ç¿ï¼ö ÀÖ´Ù. 
+ì¼ë‹¨, íŽ¸ë²•ì´ì§€ë§Œ ArangoDB ë¥¼ ê¶Œí•œ ì—†ì´ ì ‘ì†í•  ìˆ˜ ìžˆë„ë¡ ë„ìš¸ìˆ˜ ìžˆë‹¤. 
 
 ```
 service arangodb3 stop
 /usr/sbin/arangod --server.authentication false
 ```
 
-±×¸®°í ½©¿¡ Á¢¼ÓÀ» ÇØº¸ÀÚ
+ê·¸ë¦¬ê³  ì‰˜ì— ì ‘ì†ì„ í•´ë³´ìž
 ```
 arangosh
 ```
-ºñ¹øÀ» Á¦´ë·Î ÀÔ·Â ¾ÈÇØµµ Á¢¼ÓÀÌ Àß µÈ´Ù. »ç½Ç ¾Æ±îµµ Á¢¼ÓÀº µÇ´Âµ¥ ¸í·ÉÃ¢ÀÌ »¡°£»öÀ¸·Î Ç¥½ÃµÈ´Ù. Á¦´ë·Î Á¢¼ÓÇÏ¸é ¿¬µÎ»öÀ¸·Î Ç¥½Ã µÈ´Ù. ±×¸®°í ·çÆ® ºñ¹øÀ» ¹Ù²ÙÀÚ
+ë¹„ë²ˆì„ ì œëŒ€ë¡œ ìž…ë ¥ ì•ˆí•´ë„ ì ‘ì†ì´ ìž˜ ëœë‹¤. ì‚¬ì‹¤ ì•„ê¹Œë„ ì ‘ì†ì€ ë˜ëŠ”ë° ëª…ë ¹ì°½ì´ ë¹¨ê°„ìƒ‰ìœ¼ë¡œ í‘œì‹œëœë‹¤. ì œëŒ€ë¡œ ì ‘ì†í•˜ë©´ ì—°ë‘ìƒ‰ìœ¼ë¡œ í‘œì‹œ ëœë‹¤. ê·¸ë¦¬ê³  ë£¨íŠ¸ ë¹„ë²ˆì„ ë°”ê¾¸ìž
 
 ```
 require("@arangodb/users").replace("root", "my-changed-password");
@@ -95,12 +95,12 @@ exit
 service arangodb3 restart
 ```
 
-°ñ‹š¸®´Â ¹æ¹ýÀÌÁö¸¸ ¾îÂ¶µç ·çÆ®ÀÇ °èÁ¤ ºñ¹øÀÌ º¯°æÀÌ Àß µÇ¾ú´Ù. ÄÜ¼Ö È­¸é¿¡¼­µµ Á¢¼ÓÀÌ Àß µÈ´Ù! °¡Áî¾Æ!!!
+ì–´ì¨‹ë“  ë£¨íŠ¸ì˜ ê³„ì • ë¹„ë²ˆì´ ë³€ê²½ì´ ìž˜ ë˜ì—ˆë‹¤. ì½˜ì†” í™”ë©´ì—ì„œë„ ì ‘ì†ì´ ìž˜ ëœë‹¤! ê°€ì¦ˆì•„!!!
 
 
-#### µðºñ »ý¼º
+#### ë””ë¹„ ìƒì„±
 
 
 
 
-¹®¼­ ÀÛ¼º Áß..........
+ë¬¸ì„œ ìž‘ì„± ì¤‘..........
