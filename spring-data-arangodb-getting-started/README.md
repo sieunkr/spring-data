@@ -257,5 +257,19 @@ public void save(){
 
 자, 정상적으로 입력된 것을 확인할 수 있다. 
 
+findOne 메소드를 활용해서 특정 데이터를 조회할수도 있다. 
+```java
+coffeeRepository.findOne(Example.of(coffee)).get()
+```
+
+아래와 같이 Repository 에 만들수도 있는데, 조금더 깔끔한거 같다.
+```java
+public interface CoffeeRepository extends ArangoRepository<Coffee> {
+	//생략...
+	Iterable<Character> findByName(String name);  
+	Iterable<Character> findByPrice(Integer price);
+```
+
+
 
 문서 작성 중
