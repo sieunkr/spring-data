@@ -97,8 +97,25 @@ service arangodb3 restart
 
 어쨋든 루트의 계정 비번이 변경이 잘 되었다. 콘솔 화면에서도 접속이 잘 된다! 가즈아!!!
 
+## 데이터 입력
 
-## Spring Getting Started
+#### 웹콘솔에서 데이터 입력해보기
+Collection 은 단순하게 테이블과 유사하다고 생각하면 된다. Type 은 Document 와 Edge 가 있다. Document 는 JSON 형태의 데이터를 저장하는 NO-SQL Collection 이다. Collection 이 생성이 되었다. 이제 쿼리를 작성해보자. 좌측 쿼리 메뉴를 클릭하고 아래와 같이 작성한 다음에, Explain 버튼을 클릭하자.  참고로 AQL 구문이라는 arangoDB에서만 사용할 수 있는 쿼리문이다. 
+```
+INSERT {name: "모카", price: 1200}
+INTO coffee
+```
+Coffee Collection 에 보면 아래와 같이 데이터가 생긴 것을 확인할 수 있다. 
+01.png
+
+AQL 구문에 대한 가이드는 레퍼런스를 참고하자. 필자는 arangoDB 를 아직은 깊게 볼 생각이 없기 때문에 AQL 구문은 아직 보고 싶지 않다. 
+
+#### Document vs Edge
+그렇다면 두 타입의 차이는 무엇인가? 
+
+글 작성 중...
+
+## Spring Getting Started 
 
 참고 링크
 [https://www.arangodb.com/tutorials/spring-data/part1-getting-started/](https://www.arangodb.com/tutorials/spring-data/part1-getting-started/)
@@ -148,5 +165,97 @@ arangodb.user=root
 arangodb.password=****
 ```
 
+#### Spring 에서 데이터 조회
+Spring 에서 데이터를 입력하기 전에 아까 콘솔화면에서 이미 입력한 데이터를 조회해보자.  먼저 @Document 어노테이션이 선언된 Coffee 클래스를 만들자. 
+```java
+@Document  
+public class Coffee {  
+  
+    private String name;  
+  
+ private Integer price;  
+  
+ public Coffee(String name, Integer price){  
+        this.name = name;  
+ this.price = price;  
+  }  
+  
+    public String getName() {  
+        return name;  
+  }  
+  
+    public Integer getPrice() {  
+        return price;  
+  }  
+}
+```
 
-문서 작성 중..........
+컨피그 설정은 아래와 같이 작성한다. 참고로, property 파일에 작성하는게 더 깔끔할 것이다. 필자는 테스트 소스라서 아래와 같이 간단하게 연동한다. 
+```java
+@Configuration  
+@EnableArangoRepositories(basePackages = { "spring.data.arangodb.entity" })  
+public class ArangoConfiguration extends AbstractArangoConfiguration {  
+  
+    @Override  
+  public ArangoDB.Builder arango() {  
+        ArangoDB.Builder arango = new ArangoDB.Builder()  
+                .host("***.205.***.42")  
+                .port(8529)  
+                .user("root")  
+                .password("$$$$$$$");  
+		 return arango;  
+  
+  }  
+  
+	@Override  
+	public String database() {  
+        // Name of the database to be used  
+	return "Cafe";  
+  }  
+}
+
+```
+arangodb-spring-data 에서는 ArangoRepository 를 제공해주는데, 해당 Repository 는 PagingAndSortingRepository 와 QueryByExampleExecutor 를 상속받는다. PagingAndSortingRepository  는 CrudRepository 를 상속받는다. 대충 감이 오겠지만, 해당 Repository 를 사용하면 왠만한 CRUD 는 구현이 가능할 것 같다. 
+
+```java
+public interface CoffeeRepository extends ArangoRepository<Coffee> {  
+  
+    Iterable<Coffee> findByChildsAgeBetween(int lowerBound, int upperBound);  
+  
+}
+```
+간단한 RestController 를 만들고, Document 데이터 리스트를 리턴해보자. 
+```java
+@RestController  
+public class HomeController {  
+  
+    @Autowired  
+  private CoffeeRepository coffeeRepository;  
+  
+  @GetMapping("/coffees")  
+    public List<Coffee> list(){  
+  
+        List<Coffee> coffees = StreamSupport.stream(coffeeRepository.findAll().spliterator(), true)  
+                .collect(Collectors.toList());  
+  
+ return coffees;  
+  }
+```
+
+ #### Spring 에서 데이터 입력
+
+```java
+//샘플소스
+//Post 메소드이고, RequestBody 또는 Param 이 필요하지만, 테스트로 구현하는 것이이 아래와 같이 빠르게 구현, 데이터가 잘 들어가는지만 확인
+@PostMapping("/coffees")  
+public void save(){  
+  
+    final Coffee coffee = new Coffee("라떼", 1100);  
+  coffeeRepository.save(coffee);  
+  }
+```
+
+자, 정상적으로 입력된 것을 확인할 수 있다. 
+
+
+문서 작성 중
