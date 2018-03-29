@@ -272,6 +272,19 @@ public interface CoffeeRepository extends ArangoRepository<Coffee> {
 
 
 
+## Data model 정리
+데이터 모델 개념을 정리해보자.
+
+#### Data Model
+**Document** 는 VelocyPack 라고 불리는 바이너리 포맷으로 저장되는데, JSON 과 거의 유사하다.  **Document** 는 **Collection** 안에 그룹화 된다. 만약, RDBMS에 익숙하다면, 테이블과 **Document** 를 비교하는 것이 적합할 것이다. 전통적인 RDMBS 와의 차이는, 테이블에는 정의된 컬럼에 데이터를 넣는다. 스키마라고도 부른다.  **ArangoDB** 에는 스키마가 없기 때문에 **Document** 를 정의할 필요는 없다.  모든 **Document** 는 완전히 다른 구조를 가질 수 있으며, 단일 **Collection**에서 다른 **Document**와 함께 저장될 수 있다.  **Collection**에는 두가지 타입이 있는데, **Document Collection** 과 **Edge Collection** 이다. **Edge Collection** 에는 **Document**도 저장하지만, **Document** 사이의 관계를 만드는 두가지 특별한 속성, **_from**, **_to** 이 포함되어 있다. 
+
+#### Graph
+
+
+
+
+
+
 문서 작성 중
 
 [https://github.com/arangodb/spring-data-demo#create-a-repository](https://github.com/arangodb/spring-data-demo#create-a-repository)
