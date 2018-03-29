@@ -273,3 +273,5 @@ public interface CoffeeRepository extends ArangoRepository<Coffee> {
 
 
 문서 작성 중
+
+[https://github.com/arangodb/spring-data-demo#create-a-repository](https://github.com/arangodb/spring-data-demo#create-a-repository)
