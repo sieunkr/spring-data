@@ -137,6 +137,68 @@ service arangodb3 restart
 참고로, 필자는 CentOS 외에도 도커 이미지로 설치를 진행하였다. 도커는 처음 컨테이너를 띄우는 과정은 매우 간단하지만, 도커에 대해서 잘 모르기 떄문에 아직은 어렵다. 도커를 잘 아는 개발자라면 도커가 편할 것이다. 
 
 
+#### Ubuntu 에서의 설치
+내가 셋팅한 우분투 서버의 버전이 매우 낮다. 귀찮으니 일단 그대로 설치해보자. 참고만 하길 바란다.  우분투 14.04.03 버전이 설치되어있다. 아마도 2년 전쯤 설치한....
+```bash
+wget https://www.arangodb.com/repositories/arangodb2/xUbuntu_14.04/Release.key
+sudo apt-key add Release.key
+sudo apt-add-repository 'deb https://www.arangodb.com/repositories/arangodb2/xUbuntu_14.04/ /'
+sudo apt-get update
+sudo apt-get install arangodb
+```
+근데 이렇게 설치하니 아랑고의 버전이 2.8.X 대로 설치가 되었다. 버전간의 차이점을 잘 모르는 상황이라서 그대로 써도 되는지는 모르겠다. CentOS 로 설치한 아랑고가 3.3.4 이니깐... 일단 우분투에 설치한건 버리고 CentOS 에 설치한걸로 스터디 하기로 하자.
+
+#### 도커 이미지로 설치
+아마 (사람들이 말하는)가장 심플한 방법일 것이다. 하지만 나는 도커가 아직 너무 어려운것 같다. 설정도 이해 안되고, 전반적으로 좀 짜증나는거 같다. 뭐 좋기는 한데.. 아직 익숙하지는 않다. 
+
+일단 도커를 설치하자. 아래 방법은 설치 스크립트를 사용하는 설치하는 방법이다. 다른 방법은 난 잘 모른다.
+```bash
+curl -fsSL https://get.docker.com/ | sudo sh
+```
+
+그리고 아래 명령어를 실행하자.
+```bash
+docker run -p 8529:8529 -e ARANGO_ROOT_PASSWORD=1234 arangodb/arangodb:3.3.5
+```
+뭔가 로컬에서 찾을수 없다고 하더니, 뭔가 많이 다운로드 한다. 불안하다. 
+어쨋든 저 두줄의 명령어로 아주 심플하게 도커이미지로 아랑고DB를 띄운것 같다. 그리고 로컬호스트8529와, 컨테이너의8529 포트를 연결해준것 같다. 근데 그럼..로컬에서 아랑고를 실행하면 되는건가?? 단지 로컬에서는 포트로 연결해준것 밖에 안되는것 같다. 컨테이너에 접속? 접근을 해야할것 같다;; 
+
+아래와 같은 명령을 실행하면, 
+```bash
+docker ps -a
+```
+실행중인 도커이미지가 나온다. 
+
+이미지 참고! 
+그리고 도커 컨테이너ID에 접속하면 된다. 
+
+```bash
+docker exec -it 컨테이너id /bin/bash  
+```
+
+접속하면 아래와 같이 컨테이너ID 가 표시되면서 접속된 것을 확인할 수 있다.
+```bash
+root@컨테이너ID:/# 
+```
+자. 여기서 arangosh 를 실행하자. 
+악! 도커를 실행하면서 root_password 를 같이 적용하였기 때문에, 해당 비번으로 접속이 가능하다. 
+
+근데, 도커로 실행하니 vi 명령어가 실행이 되지 않는다. 
+아마도 미니멈?? 상태로 배포되기 때문에 수동으로 설치를 해줘야 하는것 같다. 자 그럼 설치하자.. 참고로 지금은 우분투이다. 아까 저기 위에 설치한 것은 CentOS 6.X
+
+```bash
+apt-get update
+apt-get install vim
+```
+
+만약 재시작 하고 싶다면 Docker 명령어로 재시작해야 한다. Docker 컨테이너에 접속했을 때는 Service 등의 명령어는 실행할 수 없다. 
+```bash
+docker restart 컨테이너ID
+```
+
+
+
+
 
 ## 테스트 데이터 입력
 
