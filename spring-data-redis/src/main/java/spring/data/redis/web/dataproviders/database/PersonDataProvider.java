@@ -1,4 +1,4 @@
-package spring.data.redis.web.dataproviders;
+package spring.data.redis.web.dataproviders.database;
 
 import org.springframework.stereotype.Component;
 import spring.data.redis.web.core.entity.Person;
