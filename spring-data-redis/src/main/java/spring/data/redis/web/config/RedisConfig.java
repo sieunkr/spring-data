@@ -13,10 +13,14 @@ import redis.clients.jedis.JedisPoolConfig;
 @ComponentScan("spring.data.redis.web")
 public class RedisConfig {
 
-    private @Value("${spring.redis.host}") String redisHost;
-    private @Value("${spring.redis.port}") int redisPort;
-    private @Value("${spring.redis.password}") String password;
+    @Value("${spring.redis.host}")
+    private String redisHost;
 
+    @Value("${spring.redis.port}")
+    private int redisPort;
+
+    @Value("${spring.redis.password}")
+    private  String password;
 
     @Bean
     public JedisPoolConfig jedisPoolConfig() {
@@ -27,7 +31,6 @@ public class RedisConfig {
         jedisPoolConfig.setTestOnReturn(true);
         return jedisPoolConfig;
     }
-
 
     @Bean
     public JedisConnectionFactory redisConnectionFactory() {
@@ -52,7 +55,4 @@ public class RedisConfig {
         template.setEnableTransactionSupport(true);
         return template;
     }
-
-
-
 }
