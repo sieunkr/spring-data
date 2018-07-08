@@ -1,4 +1,4 @@
-package spring.data.redis.web.core.repo;
+package spring.data.redis.web.core.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import spring.data.redis.web.core.entity.Movie;

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import spring.data.redis.web.core.entity.Movie;
-import spring.data.redis.web.core.repo.MovieRepository;
+import spring.data.redis.web.core.repository.MovieRepository;
 
 import java.util.List;
 

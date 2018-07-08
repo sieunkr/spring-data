@@ -2,7 +2,7 @@ package spring.data.redis.web.dataproviders.database;
 
 import org.springframework.stereotype.Component;
 import spring.data.redis.web.core.entity.Person;
-import spring.data.redis.web.core.repo.PersonRepository;
+import spring.data.redis.web.core.repository.PersonRepository;
 import spring.data.redis.web.core.usecase.Personal;
 
 import java.util.List;
