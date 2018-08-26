@@ -12,10 +12,10 @@ public class ArangoConfiguration extends AbstractArangoConfiguration {
     @Override
     public ArangoDB.Builder arango() {
         ArangoDB.Builder arango = new ArangoDB.Builder()
-                .host("119.205.221.42")
+                .host("119.205.###.###")
                 .port(8529)
-                .user("root")
-                .password("3792154");
+                .user("####")
+                .password("####");
         return arango;
 
     }
