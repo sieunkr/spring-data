@@ -8,10 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public interface CoffeeRepository extends CrudRepository<Coffee, Long> {
 
-    //Coffee findByName(String name);
-
     @Query("select * from Coffee c where c.coffeename = :coffeename")
     Coffee findByName(@Param("coffeename") String coffeename);
-
 
 }
