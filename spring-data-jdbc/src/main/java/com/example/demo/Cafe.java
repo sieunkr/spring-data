@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import org.springframework.data.annotation.AccessType;
 import org.springframework.data.annotation.Id;
 
 import java.util.HashMap;
@@ -14,7 +13,7 @@ public class Cafe {
 
     public String title;
 
-    public Map<String, Coffee> coffeeMap = new HashMap<>();
+    private Map<String, Coffee> coffeeMap = new HashMap<>();
 
     public void addCoffee(String name, Integer price) {
 

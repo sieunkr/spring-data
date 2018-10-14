@@ -30,6 +30,6 @@ repositories {
 dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-data-jdbc')
 	implementation('org.springframework.boot:spring-boot-starter-web')
-	runtimeOnly('org.hsqldb:hsqldb')
+	runtimeOnly('com.h2database:h2')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
