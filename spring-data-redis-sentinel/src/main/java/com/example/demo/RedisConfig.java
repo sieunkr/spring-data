@@ -3,12 +3,11 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisNode;
 import org.springframework.data.redis.connection.RedisSentinelConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
 public class RedisConfig {
@@ -21,7 +20,6 @@ public class RedisConfig {
 
     @Value("${redis.sentinel.nodes}")
     private String redisNodes;
-
 
     @Bean
     public RedisConnectionFactory jedisConnectionFactory() {
@@ -36,8 +34,25 @@ public class RedisConfig {
             sentinelConfig.addSentinel(new RedisNode(ip, Integer.parseInt(port)));
         }
 
+
+        JedisPoolConfig poolConfig = new JedisPoolConfig();
+        poolConfig.setMaxTotal(100);
+        poolConfig.setMaxIdle(50);
+        poolConfig.setMinIdle(10);
+        poolConfig.setMaxWaitMillis(12000);
+        poolConfig.setBlockWhenExhausted(true); //확인 필요
+        poolConfig.setTestOnBorrow(true);
+        poolConfig.setTestOnReturn(true);
+        poolConfig.setTestWhileIdle(true);
+        poolConfig.setTimeBetweenEvictionRunsMillis(3600000);
+        poolConfig.setNumTestsPerEvictionRun(5);
+        poolConfig.setMinEvictableIdleTimeMillis(300000);
+        poolConfig.setSoftMinEvictableIdleTimeMillis(300000);
+
+
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(sentinelConfig);
         jedisConnectionFactory.setPassword(password);
+        jedisConnectionFactory.setPoolConfig(poolConfig);
 
         return jedisConnectionFactory;
     }
