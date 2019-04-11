@@ -8,4 +8,6 @@ public interface CoffeeRepository extends ReactiveCrudRepository<Coffee, Integer
 
     @Query("SELECT * FROM COFFEES WHERE name = $1")
     Flux<Coffee> findByName(String name);
+
 }
+

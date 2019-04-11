@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS COFFEES;
+CREATE TABLE COFFEES ( id INTEGER PRIMARY KEY,
+                        name VARCHAR(100) NOT NULL,
+                        price INTEGER NOT NULL);
+

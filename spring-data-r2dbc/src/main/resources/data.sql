@@ -1,0 +1,1 @@
+INSERT INTO coffees(id, name, price) VALUES (1, '라떼', 1200);

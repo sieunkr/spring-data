@@ -25,18 +25,8 @@ public class CustomRepository {
                 .as(Coffee.class)
                 .fetch()
                 .all();
-
-        /*
-        return databaseClient.select()
-                .from("coffees")
-                .orderBy(Sort.by(desc("id")))
-                .as(Coffee.class)
-                .fetch()
-                .all();
-        */
-
     }
-    
+
     //TODO: name 으로 조회
     Flux<Coffee> findByName(String name){
 

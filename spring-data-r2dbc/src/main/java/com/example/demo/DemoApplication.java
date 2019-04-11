@@ -20,12 +20,10 @@ public class DemoApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        System.out.println("dd");
         /*
         coffeeRepository.save(new Coffee(1, "모카", 1200)).subscribe();
         coffeeRepository.save(new Coffee(2, "라떼", 1100)).subscribe();
         coffeeRepository.save(new Coffee(3, "아메리카노", 900)).subscribe();
         */
-
     }
 }
