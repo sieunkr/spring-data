@@ -1,7 +1,7 @@
 package com.example.demo.provider;
 
-import com.example.demo.core.Article;
 import com.example.demo.core.ArticleUseCase;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
@@ -14,25 +14,26 @@ import java.util.Objects;
 public class ArticleProvider implements ArticleUseCase {
 
     private final RedisTemplate<String,String> redisTemplate;
-    private final ZSetOperations<String, String> zSetOperations;
+    private final ListOperations<String, String> listOperations;
     private final String REDIS_PREFIX_KEY = "articles:";
-    private final int ARTICLE_MAX_SIZE = 5;
+    private final int ARTICLE_MAX_SIZE = 10;
 
     public ArticleProvider(RedisTemplate<String, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
-        this.zSetOperations = redisTemplate.opsForZSet();
+        this.listOperations = redisTemplate.opsForList();
     }
 
     @Override
     public List<String> recentlyArticlesById(String nid) {
-        //reverseRange는 LinkedHashMap 으로 리턴 됨
-        return new ArrayList<>(Objects.requireNonNull(zSetOperations.reverseRange(REDIS_PREFIX_KEY + nid, 0, -1)));
+        return listOperations.range(REDIS_PREFIX_KEY + nid, 0, 4);
     }
 
     @Override
     public void setScore(String nid, String articleUrl, long timestamp) {
-        zSetOperations.add(REDIS_PREFIX_KEY + nid, articleUrl, timestamp);
-        zSetOperations.removeRange(REDIS_PREFIX_KEY + nid, -(ARTICLE_MAX_SIZE + 1), -(ARTICLE_MAX_SIZE + 1));
+        //timestamp 사용하지 않음
+        listOperations.leftPush(REDIS_PREFIX_KEY + nid, articleUrl);
+        listOperations.trim(REDIS_PREFIX_KEY + nid, 0, ARTICLE_MAX_SIZE - 1);
+
     }
 
 }
