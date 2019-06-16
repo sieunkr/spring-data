@@ -36,4 +36,8 @@ public class ArticleProvider implements ArticleUseCase {
 
     }
 
+    @Override
+    public void deleteById(String nid) {
+        redisTemplate.delete(REDIS_PREFIX_KEY + nid);
+    }
 }

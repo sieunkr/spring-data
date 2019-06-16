@@ -20,6 +20,9 @@ public class ArticleProviderTest {
 
     @Test
     public void testAdd() {
+
+        articleProvider.deleteById("sieunkim");
+
         for(int i = 1; i <= 30; i++){
             Instant instant = Instant.now();
             long timeStampMillis = instant.toEpochMilli();

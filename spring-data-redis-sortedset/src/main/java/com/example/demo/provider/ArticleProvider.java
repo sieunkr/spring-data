@@ -35,4 +35,9 @@ public class ArticleProvider implements ArticleUseCase {
         zSetOperations.removeRange(REDIS_PREFIX_KEY + nid, -(ARTICLE_MAX_SIZE + 1), -(ARTICLE_MAX_SIZE + 1));
     }
 
+    @Override
+    public void deleteById(String nid) {
+        redisTemplate.delete(REDIS_PREFIX_KEY + nid);
+    }
+
 }
