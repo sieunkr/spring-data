@@ -19,7 +19,7 @@ public class ArticleProviderTest {
     private ArticleProvider articleProvider;
 
     @Test
-    public void testAdd() {
+    public void 테스트를_위한_샘플_데이터_저장() {
 
         articleProvider.deleteById("sieunkim");
 
@@ -31,13 +31,10 @@ public class ArticleProviderTest {
     }
 
     @Test
-    public void recentlyArticlesById() {
+    public void 최근에_봤던_기사_5개를_조회할수_있는가() {
         List<String> list = articleProvider.recentlyArticlesById("sieunkim");
         assertEquals(5, list.size());
         assertEquals("@springboot/30", list.get(0));
     }
 
-    @Test
-    public void setScore() {
-    }
 }

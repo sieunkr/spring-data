@@ -16,7 +16,7 @@ public class ArticleController {
         this.articleUseCase = articleUseCase;
     }
 
-    @PostMapping("/scores")
+    @PostMapping("/articles")
     public void setScore(@RequestParam(name = "nid") String nid, @RequestParam(name = "articleUrl") String articleUrl){
 
         Instant instant = Instant.now();

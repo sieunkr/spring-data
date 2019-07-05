@@ -23,26 +23,23 @@ public class ArticleProviderTest {
     private final int ARTICLE_MAX_SIZE = 10;
 
     @Test
-    public void testAdd() {
+    public void 테스트를_위한_샘플_데이터_저장() {
 
         articleProvider.deleteById("sieunkim");
 
         for(int i = 1; i <= 30; i++){
             Instant instant = Instant.now();
             long timeStampMillis = instant.toEpochMilli();
-            articleProvider.setScore("sieunkim", "@springboot/" + i, timeStampMillis);
+            articleProvider.setScore("sieunkim", "http://url/@springboot/" + i, timeStampMillis);
         }
     }
 
     @Test
-    public void recentlyArticlesById() {
+    public void 최근에_봤던_기사_5개를_조회할수_있는가() {
 
         List<String> list = articleProvider.recentlyArticlesById("sieunkim");
         assertEquals(5, list.size());
-        assertEquals("@springboot/30", list.get(0));
+        assertEquals("http://url/@springboot/30", list.get(0));
     }
 
-    @Test
-    public void setScore() {
-    }
 }

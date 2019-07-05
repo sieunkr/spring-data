@@ -3,12 +3,9 @@ package com.example.demo.provider;
 import com.example.demo.core.ArticleUseCase;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Component
 public class ArticleProvider implements ArticleUseCase {
@@ -30,7 +27,7 @@ public class ArticleProvider implements ArticleUseCase {
 
     @Override
     public void setScore(String nid, String articleUrl, long timestamp) {
-        //timestamp 사용하지 않음
+        //TODO:timestamp 사용하지 않음
         listOperations.leftPush(REDIS_PREFIX_KEY + nid, articleUrl);
         listOperations.trim(REDIS_PREFIX_KEY + nid, 0, ARTICLE_MAX_SIZE - 1);
 
