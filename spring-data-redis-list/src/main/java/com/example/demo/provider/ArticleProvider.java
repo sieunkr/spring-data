@@ -13,7 +13,7 @@ public class ArticleProvider implements ArticleUseCase {
     private final RedisTemplate<String,String> redisTemplate;
     private final ListOperations<String, String> listOperations;
     private final String REDIS_PREFIX_KEY = "articles:";
-    private final int ARTICLE_MAX_SIZE = 10;
+    private final int ARTICLE_MAX_SIZE = 5;
 
     public ArticleProvider(RedisTemplate<String, String> redisTemplate) {
         this.redisTemplate = redisTemplate;

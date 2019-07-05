@@ -1,6 +1,5 @@
 package com.example.demo.provider;
 
-import com.example.demo.core.Article;
 import com.example.demo.core.ArticleUseCase;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
