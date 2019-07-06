@@ -12,6 +12,7 @@ import java.time.Instant;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -41,6 +42,18 @@ public class ArticleProviderTest {
         List<String> list = articleProvider.recentlyArticlesById("sieunkim");
         assertEquals(5, list.size());
         assertEquals("http://url/@springboot/5", list.get(0));
+    }
+
+
+    @Test
+    public void 기존에_방문했던_중복URL을_저장() {
+        articleProvider.setScore("sieunkim", "http://url/@springboot/" + 3, 0L);
+
+        List<String> list = articleProvider.recentlyArticlesById("sieunkim");
+        assertEquals(5, list.size());
+        assertEquals("http://url/@springboot/3", list.get(0));
+        assertEquals("http://url/@springboot/3", list.get(3));
+
     }
 
 }

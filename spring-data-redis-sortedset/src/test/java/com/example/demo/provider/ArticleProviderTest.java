@@ -40,4 +40,17 @@ public class ArticleProviderTest {
         assertEquals("@springboot/5", list.get(0));
     }
 
+    @Test
+    public void 기존에_방문했던_중복URL을_저장() {
+        Instant instant = Instant.now();
+        long timeStampMillis = instant.toEpochMilli();
+        articleProvider.setScore("sieunkim", "@springboot/" + 3, timeStampMillis);
+
+        List<String> list = articleProvider.recentlyArticlesById("sieunkim");
+        assertEquals(5, list.size());
+        assertEquals("@springboot/3", list.get(0));
+        assertEquals("@springboot/1", list.get(4));
+
+    }
+
 }

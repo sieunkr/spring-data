@@ -25,7 +25,8 @@ public class ArticleProvider implements ArticleUseCase {
     @Override
     public List<String> recentlyArticlesById(String nid) {
         //reverseRange는 LinkedHashMap 으로 리턴 됨
-        return new ArrayList<>(Objects.requireNonNull(zSetOperations.reverseRange(REDIS_PREFIX_KEY + nid, 0, -1)));
+        return new ArrayList<>(Objects.requireNonNull(
+                zSetOperations.reverseRange(REDIS_PREFIX_KEY + nid, 0, -1)));
     }
 
     @Override
