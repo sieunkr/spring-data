@@ -6,8 +6,12 @@ import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import java.time.Duration;
+
+import static io.lettuce.core.ReadFrom.SLAVE;
 import static io.lettuce.core.ReadFrom.SLAVE_PREFERRED;
 
 @Configuration
@@ -18,24 +22,26 @@ public class RedisConfig {
 
         LettuceClientConfiguration clientConfig = LettuceClientConfiguration.builder()
                 .readFrom(SLAVE_PREFERRED)
+                .commandTimeout(Duration.ofSeconds(1))
                 .build();
 
         RedisClusterConfiguration clusterConfiguration = new RedisClusterConfiguration()
-                .clusterNode("192.168.19.129",6379)
-                .clusterNode("192.168.19.130",6379)
-                .clusterNode("192.168.19.131",6379)
-                .clusterNode("192.168.19.129",6380)
-                .clusterNode("192.168.19.130",6380)
-                .clusterNode("192.168.19.131",6380);
+                .clusterNode("192.168.19.136",6379)
+                .clusterNode("192.168.19.137",6379)
+                .clusterNode("192.168.19.138",6379)
+                .clusterNode("192.168.19.136",6380)
+                .clusterNode("192.168.19.137",6380)
+                .clusterNode("192.168.19.138",6380);
 
         return new LettuceConnectionFactory(clusterConfiguration, clientConfig);
     }
 
     @Bean
-    public RedisTemplate<String, String> redisTemplate(){
+    public RedisTemplate<String, String> personRedisTemplate(){
         RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         return redisTemplate;
     }
 }

@@ -2,24 +2,19 @@ package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/person")
 public class HomeController {
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisTemplate personRedisTemplate;
 
     @GetMapping
-    public String test(){
+    @RequestMapping("/{firstname}")
+    public String findByFirstName(@PathVariable(name = "firstname") String firstname){
 
-        //redisTemplate.opsForValue().set("kim","eddy");
-
-        String result = (String) redisTemplate.opsForValue().get("kim");
-
-        return result;
+        return (String) personRedisTemplate.opsForValue().get(firstname);
     }
 }
