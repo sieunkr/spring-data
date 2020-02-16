@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: redis-non-cluster-test
+  name: redis-non-cluster-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-non-cluster-test
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: redis-non-cluster-test
+    spec:
+      containers:
+      - image: sieunkr/redis-non-cluster-test:0.0.1
+        name: redis-non-cluster-test
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: redis-non-cluster-test
+  name: redis-non-cluster-test
+spec:
+  ports:
+  - name: 8082-8082
+    port: 8082
+    protocol: TCP
+    targetPort: 8082
+  selector:
+    app: redis-non-cluster-test
+  type: ClusterIP
+status:
+  loadBalancer: {}
